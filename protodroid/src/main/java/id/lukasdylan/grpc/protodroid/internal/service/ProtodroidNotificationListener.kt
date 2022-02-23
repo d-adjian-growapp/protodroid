@@ -50,7 +50,7 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             context,
             dataId.toInt(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         val builder = NotificationCompat.Builder(context, channelId)
@@ -61,6 +61,8 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setGroup("LOGGER")
+            .setGroupSummary(true)
             .setSilent(true)
             .build()
 
