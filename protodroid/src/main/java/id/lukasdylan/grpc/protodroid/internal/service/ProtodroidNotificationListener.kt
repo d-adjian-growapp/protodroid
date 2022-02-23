@@ -68,7 +68,7 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
         mBuilder.setContentIntent(pendingIntent)
 
