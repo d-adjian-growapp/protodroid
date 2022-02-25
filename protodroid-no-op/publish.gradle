@@ -1,4 +1,4 @@
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.jfrog.bintray'
 
 group 'com.github.lukasdylan'
 version '1.0.6'
@@ -14,27 +14,27 @@ project.ext {
 
 def properties = new Properties()
 properties.load(new FileInputStream("local.properties"))
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    publications = ['mavenPublish']
-    configurations = ['archives']
-    override = true
-    pkg {
-        repo = 'Protodroid'
-        name = 'protodroid'
-        description = "It's an awesome lib"
-        publicDownloadNumbers = true
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/lukasdylan/protodroid'
-        version {
-            name = this.version
-            desc = "Version ${this.version}"
-            released = new Date()
-            vcsTag = this.version
-        }
-    }
-}
+//
+//bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.apikey")
+//    publications = ['mavenPublish']
+//    configurations = ['archives']
+//    override = true
+//    pkg {
+//        repo = 'Protodroid'
+//        name = 'protodroid'
+//        description = "It's an awesome lib"
+//        publicDownloadNumbers = true
+//        licenses = ['Apache-2.0']
+//        vcsUrl = 'https://github.com/lukasdylan/protodroid'
+//        version {
+//            name = this.version
+//            desc = "Version ${this.version}"
+//            released = new Date()
+//            vcsTag = this.version
+//        }
+//    }
+//}
 
 apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'

@@ -52,11 +52,11 @@ android {
     resourcePrefix 'protodroid_'
 }
 
-apply from: 'publish.gradle'
+//apply from: 'publish.gradle'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'io.grpc:grpc-protobuf-lite:1.30.2'
-    testImplementation 'junit:junit:4.13'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'io.grpc:grpc-protobuf-lite:1.44.1'
+    testImplementation 'junit:junit:4.13.2'
 }
