@@ -34,6 +34,10 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
         val channelId = "protodroid-channel-id"
         val channelName = "Protodroid Channel"
 
+        val vibrationEffect = LongArray(1).apply {
+            set(0, 0L)
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val mChannel = NotificationChannel(
                 channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT
@@ -48,6 +52,8 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             .setStyle(NotificationCompat.InboxStyle())
             .setGroup("protodroid-group")
             .setGroupSummary(true)
+            .setSilent(true)
+            .setVibrate(vibrationEffect)
             .build()
 
         val mBuilder = NotificationCompat.Builder(context, channelId)
@@ -57,6 +63,8 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setGroup("protodroid-group")
             .setAutoCancel(true)
+            .setVibrate(vibrationEffect)
+            .setSilent(true)
 
         val intent = Intent(context, MainActivity::class.java).apply {
             putExtra("id", dataId)
@@ -64,12 +72,21 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             putExtra("open_detail", true)
         }
 
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(
-            context,
-            0,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
+        val pendingIntent: PendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
         mBuilder.setContentIntent(pendingIntent)
 
         notificationManager.notify(notificationId, summaryNotification)
